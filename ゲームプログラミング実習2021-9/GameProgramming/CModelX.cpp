@@ -3,6 +3,7 @@
 #include <string.h>		//文字列関数のインクルード
 
 #include "CModelX.h"
+#include "CMaterial.h"
 
 void CModelX::Load(char* file){
 	//
