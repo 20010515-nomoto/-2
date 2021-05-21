@@ -175,8 +175,8 @@ CModelXFrame::CModelXFrame(CModelX* model){
 	}
 	//デバッグバージョンのみ有効
 #ifdef _DEBUG
-	printf("%s\n", mpName);
-	mTransformMatrix.Print();
+	//printf("%s\n", mpName);
+	//mTransformMatrix.Print();
 #endif
 }
 
@@ -275,23 +275,23 @@ void CMesh::Init(CModelX *model){
 		}
 	}
 #ifdef _DEBUG
-	printf("VertexNum:%d\n", mVertexNum);	//課題追加分
-	for (int i = 0; i < mVertexNum; i++){
-		//課題追加分
-		printf("\t%f\t%f\t%f\n", mpVertex[i].mX, mpVertex[i].mY, mpVertex[i].mZ);
-	}
-	//課題追加分
-	printf("FaceNum:%d\n", mFaceNum);
-	for (int i = 0; i < mFaceNum * 3; i += 3){
-		//課題追加分
-		printf("\t%d\t%d\t%d\n", mpVertexIndex[i], mpVertexIndex[i + 1]
-			, mpVertexIndex[i + 2]);
-	}
-	printf("NormalNum:%d\n", mNormalNum);
-	for (int i = 0; i < mNormalNum; i++){
-		//課題追加分
-		printf("\t%f\t%f\t%f\n", mpNormal[i].mX,mpNormal[i].mY,mpNormal[i].mZ);
-	}
+	//printf("VertexNum:%d\n", mVertexNum);	//課題追加分
+	//for (int i = 0; i < mVertexNum; i++){
+	//	//課題追加分
+	//	printf("\t%f\t%f\t%f\n", mpVertex[i].mX, mpVertex[i].mY, mpVertex[i].mZ);
+	//}
+	////課題追加分
+	//printf("FaceNum:%d\n", mFaceNum);
+	//for (int i = 0; i < mFaceNum * 3; i += 3){
+	//	//課題追加分
+	//	printf("\t%d\t%d\t%d\n", mpVertexIndex[i], mpVertexIndex[i + 1]
+	//		, mpVertexIndex[i + 2]);
+	//}
+	//printf("NormalNum:%d\n", mNormalNum);
+	//for (int i = 0; i < mNormalNum; i++){
+	//	//課題追加分
+	//	printf("\t%f\t%f\t%f\n", mpNormal[i].mX,mpNormal[i].mY,mpNormal[i].mZ);
+	//}
 #endif
 }
 /*
