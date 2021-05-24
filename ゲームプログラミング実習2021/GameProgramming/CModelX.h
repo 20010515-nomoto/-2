@@ -5,6 +5,7 @@
 #include "CMatrix.h"	//マトリクスクラスのインクルード
 #include "CVector.h"
 class CModelX;		//CModelXクラスの宣言
+class CSkinWeights;
 class CMaterial;	//クラスの宣言
 
 #define MODEL_FILE "sample.blend.x"	//入力ファイル名
@@ -28,6 +29,7 @@ public:
 	int mMaterialIndexNum;	//マテリアル番号数(面数)
 	int *mpMaterialIndex;	//マテリアル番号
 	std::vector<CMaterial*>mMaterial;	//マテリアルデータ
+	std::vector<CSkinWeights*>mSkinWeights;	//スキンウェイト
 	//コンストラクタ
 	CMesh()
 		:mVertexNum(0)
@@ -46,6 +48,10 @@ public:
 		SAFE_DELETE_ARRAY(mpVertexIndex);
 		SAFE_DELETE_ARRAY(mpNormal);
 		SAFE_DELETE_ARRAY(mpMaterialIndex);
+		//スキンウェイトの削除
+		for (int i = 0; i < mSkinWeights.size(); i++){
+			delete mSkinWeights[i];
+		}
 	}
 	//読み込み処理
 	void Init(CModelX *model);
@@ -107,6 +113,28 @@ public:
 	//整数データの取得
 	int GetIntToken();
 	void Render();
+};
+
+/*
+CSkinWeights
+スキンウェイトクラス
+*/
+class CSkinWeights{
+public:
+	char *mpFrameName;	//フレーム名
+	int mFrameIndex;	//フレーム番号
+	int mIndexNum;		//頂点番号数
+	int *mpIndex;		//頂点番号配列
+	float *mpWeight;	//頂点ウェイト配列
+	CMatrix mOffset;	//オフセットマトリックス
+
+	CSkinWeights(CModelX *model);
+
+	~CSkinWeights(){
+		SAFE_DELETE_ARRAY(mpFrameName);
+		SAFE_DELETE_ARRAY(mpIndex);
+		SAFE_DELETE_ARRAY(mpWeight);
+	}
 };
 
 
