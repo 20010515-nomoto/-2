@@ -7,6 +7,7 @@
 class CModelX;		//CModelXクラスの宣言
 class CSkinWeights;
 class CMaterial;	//クラスの宣言
+class CAnimationSet;
 
 #define MODEL_FILE "sample.blend.x"	//入力ファイル名
 
@@ -92,6 +93,7 @@ public:
 	char* mpPointer;	//読み込み位置
 	char mToken[1024];	//取り出した単語の領域
 	std::vector<CModelXFrame*>mFrame;	//フレームの配列
+	std::vector<CAnimationSet*>mAnimationSet;	//アニメーションセットの配列
 
 	CModelX()
 		:mpPointer(nullptr)
@@ -100,6 +102,9 @@ public:
 	~CModelX(){
 		if (mFrame.size() > 0){
 			delete mFrame[0];
+		}
+		for (int i = 0; i < mAnimationSet.size(); i++){
+			delete mAnimationSet[i];
 		}
 	}
 	//ファイルの読み込み
@@ -134,6 +139,19 @@ public:
 		SAFE_DELETE_ARRAY(mpFrameName);
 		SAFE_DELETE_ARRAY(mpIndex);
 		SAFE_DELETE_ARRAY(mpWeight);
+	}
+};
+/*
+CAnimationSet
+アジメーションセット
+*/
+class CAnimationSet{
+public:
+	//アニメーションセット名
+	char *mpName;
+	CAnimationSet(CModelX *model);
+	~CAnimationSet(){
+		SAFE_DELETE_ARRAY(mpName);
 	}
 };
 
