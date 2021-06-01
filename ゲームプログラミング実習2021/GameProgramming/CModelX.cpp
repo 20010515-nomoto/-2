@@ -557,10 +557,10 @@ CAnimation::CAnimation(CModelX *model)
 #ifdef _DEBUG
 
 	printf("Animation:%s\n", mpFrameName);
-	for (int i = 0; i < 4; i += 4){
+	for (int i = 0; i < 4; i +=4){
 		for (int j = 0; j < 16; j += 4){
-			printf("%f %f %f %f\n", mpKey[i].mMatrix.mF[j], mpKey[i + 1].mMatrix.mF[j + 1]
-				, mpKey[i + 2].mMatrix.mF[j + 2], mpKey[i + 3].mMatrix.mF[j + 3]);
+			printf("%f %f %f %f\n", mpKey[i].mMatrix.mF[j], mpKey[i].mMatrix.mF[j + 1]
+				, mpKey[i].mMatrix.mF[j + 2], mpKey[i].mMatrix.mF[j + 3]);
 		}
 	}
 
