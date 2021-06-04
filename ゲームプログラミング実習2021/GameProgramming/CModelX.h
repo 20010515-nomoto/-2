@@ -122,6 +122,7 @@ public:
 	void Render();
 	//フレーム名に該当するフレームのアドレスを返す
 	CModelXFrame* FindFrame(char* name);
+	void AnimateFrame();
 };
 
 /*
@@ -151,6 +152,9 @@ CAnimationSet
 */
 class CAnimationSet{
 public:
+	float mTime;		//現在時間
+	float mWeight;		//重み
+	float mMaxTime;		//最大時間
 	//アニメーションセット名
 	char *mpName;
 	//アニメーション

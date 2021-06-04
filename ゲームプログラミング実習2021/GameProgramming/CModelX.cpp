@@ -404,6 +404,9 @@ CAnimationSet
 */
 CAnimationSet::CAnimationSet(CModelX *model)
 :mpName(nullptr)
+, mTime(0)
+, mWeight(0)
+, mMaxTime(0)
 {
 	model->mAnimationSet.push_back(this);
 	model->GetToken();		//Animation Name
@@ -556,13 +559,75 @@ CAnimation::CAnimation(CModelX *model)
 	}
 #ifdef _DEBUG
 
-	printf("Animation:%s\n", mpFrameName);
-	for (int i = 0; i < 4; i +=4){
-		for (int j = 0; j < 16; j += 4){
-			printf("%f %f %f %f\n", mpKey[i].mMatrix.mF[j], mpKey[i].mMatrix.mF[j + 1]
-				, mpKey[i].mMatrix.mF[j + 2], mpKey[i].mMatrix.mF[j + 3]);
+	//printf("Animation:%s\n", mpFrameName);
+	//for (int i = 0; i < 4; i +=4){
+	//	for (int j = 0; j < 16; j += 4){
+	//		printf("%f %f %f %f\n", mpKey[i].mMatrix.mF[j], mpKey[i].mMatrix.mF[j + 1]
+	//			, mpKey[i].mMatrix.mF[j + 2], mpKey[i].mMatrix.mF[j + 3]);
+	//	}
+	//}
+
+#endif
+}
+/*
+AnimateFrame
+フレームの変換行列をアニメーションデータで更新する
+*/
+void CModelX::AnimateFrame(){
+	//アニメーションで適用されるフレームの
+	//変換行列をゼロクリアする
+	for (int i = 0; i < mAnimationSet.size(); i++){
+		CAnimationSet* anim = mAnimationSet[i];
+		//重みが0は飛ばす
+		if (anim->mWeight == 0)continue;
+		//フレーム分(Animation分)繰り返す
+		for (int j = 0; j < anim->mAnimation.size(); j++){
+			CAnimation* animation = anim->mAnimation[j];
+			//該当するフレームの変換行列をゼロクリアする
+			memset(&mFrame[animation->mFrameIndex]->mTransformMatrix, 0, sizeof(CMatrix));
 		}
 	}
+	//アニメーションに該当するフレームの変換行列を
+	//アニメーションのデータで設定する
+	for (int i = 0; i < mAnimationSet.size(); i++){
+		CAnimationSet* anim = mAnimationSet[i];
+		//重みが0は飛ばす
+		if (anim->mWeight == 0)continue;
+		//フレーム分(Animation分)繰り返す
+		for (int j = 0; j < anim->mAnimation.size(); j++){
+			//フレームを取得する
+			CAnimation* animation = anim->mAnimation[j];
+			CModelXFrame* frame = mFrame[animation->mFrameIndex];
+			//キーが無い場合は飛ばす
+			if (animation->mpKey == 0)continue;
+			//時間を取得
+			float time = anim->mTime;
+			//最初の時間より小さい場合
+			if (time < animation->mpKey[0].mTime){
+				//変換行列を0コマ目の行列で更新
+				frame->mTransformMatrix += animation->mpKey[0].mMatrix * anim->mWeight;
+			}
+			else if (time >= animation->mpKey[animation->mKeyNum - 1].mTime){
+				//変換行列を最後のコマの行列で更新
+				frame->mTransformMatrix += animation->mpKey[animation->mKeyNum - 1].mMatrix * anim->mWeight;
+			}
+			else{
+				//時間の途中の場合
+				for (int k = 0; k < animation->mKeyNum; k++){
+					//変換行列を、線形保管にて更新
+					if (time < animation->mpKey[0].mTime&&
+						animation->mpKey[k - 1].mTime != animation->mpKey[k].mTime){
+						float r = (animation->mpKey[k].mTime - time) /
+							(animation->mpKey[k].mTime - animation->mpKey[k - 1].mTime);
+						frame->mTransformMatrix +=
+							(animation->mpKey[k - 1].mMatrix * r + animation->mpKey[k].mMatrix*(1 - r))*anim->mWeight;
+						break;
+					}
+				}
+			}
+		}
+	}
+#ifdef _DEBUG
 
 #endif
 }
