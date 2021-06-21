@@ -613,9 +613,9 @@ void CModelX::AnimateFrame(){
 			}
 			else{
 				//時間の途中の場合
-				for (int k = 0; k < animation->mKeyNum; k++){
+				for (int k = 1; k < animation->mKeyNum; k++){
 					//変換行列を、線形保管にて更新
-					if (time < animation->mpKey[0].mTime&&
+					if (time < animation->mpKey[k].mTime&&
 						animation->mpKey[k - 1].mTime != animation->mpKey[k].mTime){
 						float r = (animation->mpKey[k].mTime - time) /
 							(animation->mpKey[k].mTime - animation->mpKey[k - 1].mTime);
