@@ -82,6 +82,9 @@ public:
 		SAFE_DELETE_ARRAY(mpName);
 	}
 	void Render();
+	CMatrix mCombinedMatrix;	//‡¬s—ñ
+	//‡¬s—ñ‚Ìì¬
+	void AnimateCoombined(CMatrix* parent);
 };
 
 

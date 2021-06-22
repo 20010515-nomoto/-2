@@ -25,11 +25,20 @@ void CSceneGame::Init() {
 
 void CSceneGame::Update() {
 	//最初のアニメーションの現在時間を45にする
-	CRes::sModelX.mAnimationSet[0]->mTime = 45;
+	CRes::sModelX.mAnimationSet[0]->mTime = 0;
 	//最初のアニメーションの重みを1.0(100%)にする
 	CRes::sModelX.mAnimationSet[0]->mWeight = 1.0f;
 	//フレームの変換行列をアニメーションで更新する
 	CRes::sModelX.AnimateFrame();
+	//フレームの合成行列を作成する
+	CRes::sModelX.mFrame[0]->AnimateCoombined(&Matrix);
+
+#ifdef _DEBUG
+	for (int i = 0; i < 6; i++){
+		printf("Frame:%s\n", CRes::sModelX.mFrame[i]->mpName);
+	}
+#endif
+
 	//カメラのパラメータを作成する
 	CVector e, c, u;//視点、注視点、上方向
 	//視点を求める

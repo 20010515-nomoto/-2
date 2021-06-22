@@ -628,7 +628,7 @@ void CModelX::AnimateFrame(){
 		}
 	}
 #ifdef _DEBUG
-	for (int i = 0; i < mAnimationSet.size(); i++){
+	/*for (int i = 0; i < mAnimationSet.size(); i++){
 		CAnimationSet* anim = mAnimationSet[i];
 		for (int j = 0; j < anim->mAnimation.size(); j++){
 			CAnimation* animation = anim->mAnimation[j];
@@ -642,6 +642,18 @@ void CModelX::AnimateFrame(){
 				}
 			}
 		}
-	}
+	}*/
 #endif
+}
+/*
+AnimateCombined
+合成行列の作成
+*/
+void CModelXFrame::AnimateCoombined(CMatrix* parent){
+	//自分の変換行列に、親からの変換行列を掛ける
+	mCombinedMatrix = mTransformMatrix * (*parent);
+	//子フレームの合成行列を作成する
+	for (int i = 0; i < mChild.size(); i++){
+		mChild[i]->AnimateCoombined(&mCombinedMatrix);
+	}
 }
