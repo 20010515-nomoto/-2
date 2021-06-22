@@ -560,12 +560,12 @@ CAnimation::CAnimation(CModelX *model)
 #ifdef _DEBUG
 
 	//printf("Animation:%s\n", mpFrameName);
-	//for (int i = 0; i < 4; i +=4){
-	//	for (int j = 0; j < 16; j += 4){
-	//		printf("%f %f %f %f\n", mpKey[i].mMatrix.mF[j], mpKey[i].mMatrix.mF[j + 1]
-	//			, mpKey[i].mMatrix.mF[j + 2], mpKey[i].mMatrix.mF[j + 3]);
-	//	}
-	//}
+	/*for (int i = 0; i < 4; i +=4){
+		for (int j = 0; j < 16; j += 4){
+			printf("%f %f %f %f\n", mpKey[i].mMatrix.mF[j], mpKey[i].mMatrix.mF[j + 1]
+				, mpKey[i].mMatrix.mF[j + 2], mpKey[i].mMatrix.mF[j + 3]);
+		}
+	}*/
 
 #endif
 }
@@ -628,6 +628,20 @@ void CModelX::AnimateFrame(){
 		}
 	}
 #ifdef _DEBUG
+	for (int i = 0; i < mAnimationSet.size(); i++){
+		CAnimationSet* anim = mAnimationSet[i];
+		for (int j = 0; j < anim->mAnimation.size(); j++){
+			CAnimation* animation = anim->mAnimation[j];
+			CModelXFrame* frame = mFrame[animation->mFrameIndex];
 
+			printf("Frame:%s\n", animation->mpFrameName); 
+			for (int i = 0; i < 4; i += 4){
+				for (int j = 0; j < 16; j += 4){
+					printf("%f %f %f %f\n", frame->mTransformMatrix.mM[i][j], frame->mTransformMatrix.mM[i][j + 1],
+						frame->mTransformMatrix.mM[i][j + 2], frame->mTransformMatrix.mM[i][j + 3]);
+				}
+			}
+		}
+	}
 #endif
 }
