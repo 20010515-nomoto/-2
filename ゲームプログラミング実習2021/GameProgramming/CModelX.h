@@ -84,7 +84,7 @@ public:
 	void Render();
 	CMatrix mCombinedMatrix;	//‡¬s—ñ
 	//‡¬s—ñ‚Ìì¬
-	void AnimateCoombined(CMatrix* parent);
+	void AnimateCombined(CMatrix* parent);
 };
 
 

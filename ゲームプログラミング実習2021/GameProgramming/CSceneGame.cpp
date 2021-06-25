@@ -31,11 +31,20 @@ void CSceneGame::Update() {
 	//フレームの変換行列をアニメーションで更新する
 	CRes::sModelX.AnimateFrame();
 	//フレームの合成行列を作成する
-	CRes::sModelX.mFrame[0]->AnimateCoombined(&Matrix);
+	CRes::sModelX.mFrame[0]->AnimateCombined(&Matrix);
 
 #ifdef _DEBUG
-	for (int i = 0; i < 6; i++){
-		printf("Frame:%s\n", CRes::sModelX.mFrame[i]->mpName);
+	for (int k = 0; k < 6; k++){
+		printf("Frame:%s\n", CRes::sModelX.mFrame[k]->mpName);
+		for (int i = 0; i < 4; i += 4){
+			for (int j = 0; j < 16; j += 4){
+				printf(" %f %f %f %f\n",
+					CRes::sModelX.mFrame[k]->mCombinedMatrix.mM[i][j],
+					CRes::sModelX.mFrame[k]->mCombinedMatrix.mM[i][j + 1],
+					CRes::sModelX.mFrame[k]->mCombinedMatrix.mM[i][j + 2],
+					CRes::sModelX.mFrame[k]->mCombinedMatrix.mM[i][j + 3]);
+			}
+		}
 	}
 #endif
 
