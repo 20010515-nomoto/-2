@@ -25,7 +25,11 @@ void CSceneGame::Init() {
 
 void CSceneGame::Update() {
 	//最初のアニメーションの現在時間を45にする
-	CRes::sModelX.mAnimationSet[0]->mTime = 0;
+	//CRes::sModelX.mAnimationSet[0]->mTime = 0;
+	CRes::sModelX.mAnimationSet[0]->mTime += 1.0f;
+	CRes::sModelX.mAnimationSet[0]->mTime =
+		(int)CRes::sModelX.mAnimationSet[0]->mTime %
+		(int)(CRes::sModelX.mAnimationSet[0]->mMaxTime + 1);
 	//最初のアニメーションの重みを1.0(100%)にする
 	CRes::sModelX.mAnimationSet[0]->mWeight = 1.0f;
 	//フレームの変換行列をアニメーションで更新する
@@ -34,7 +38,7 @@ void CSceneGame::Update() {
 	CRes::sModelX.mFrame[0]->AnimateCombined(&Matrix);
 
 #ifdef _DEBUG
-	for (int k = 0; k < 6; k++){
+	/*for (int k = 0; k < 6; k++){
 		printf("Frame:%s\n", CRes::sModelX.mFrame[k]->mpName);
 		for (int i = 0; i < 4; i += 4){
 			for (int j = 0; j < 16; j += 4){
@@ -45,7 +49,7 @@ void CSceneGame::Update() {
 					CRes::sModelX.mFrame[k]->mCombinedMatrix.mM[i][j + 3]);
 			}
 		}
-	}
+	}*/
 #endif
 
 	//カメラのパラメータを作成する
@@ -79,6 +83,8 @@ void CSceneGame::Update() {
 	}
 	//行列設定
 	glMultMatrixf(Matrix.mF);
+	//頂点にアニメーションを適用する
+	CRes::sModelX.AnimateVertex();
 	//モデル描画
 	CRes::sModelX.Render();
 
