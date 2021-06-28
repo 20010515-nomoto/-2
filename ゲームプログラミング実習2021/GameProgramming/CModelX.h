@@ -11,7 +11,7 @@ class CAnimationSet;
 class CAnimation;
 class CAnimationKey;
 
-#define MODEL_FILE "sample.blend.x"	//入力ファイル名
+#define MODEL_FILE "ラグナ.x"	//入力ファイル名
 
 //配列のサイズ取得をマクロ化
 #define ARRAY_SIZE(a) (sizeof(a) / sizeof(a[0]))
@@ -110,6 +110,7 @@ public:
 	char mToken[1024];	//取り出した単語の領域
 	std::vector<CModelXFrame*>mFrame;	//フレームの配列
 	std::vector<CAnimationSet*>mAnimationSet;	//アニメーションセットの配列
+	std::vector<CMaterial*>mMaterial;	//マテリアルの配列
 
 	CModelX()
 		:mpPointer(nullptr)
@@ -121,6 +122,9 @@ public:
 		}
 		for (int i = 0; i < mAnimationSet.size(); i++){
 			delete mAnimationSet[i];
+		}
+		for (int i = 0; i < mMaterial.size(); i++){
+			delete mMaterial[i];
 		}
 	}
 	//ファイルの読み込み
@@ -141,6 +145,8 @@ public:
 	void SetSkinWeightFrameIndex();
 	//頂点にアニメーションを適用
 	void AnimateVertex();
+	//マテリアルの検索
+	CMaterial* FindMaterial(char* name);
 };
 
 /*
