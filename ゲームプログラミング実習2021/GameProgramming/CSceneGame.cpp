@@ -8,8 +8,11 @@
 
 #include "CKey.h"
 #include "CMaterial.h"
+#include "CXCharacter.h"
 
 CMatrix Matrix;
+//キャラクタクラスのインスタンス
+CXCharacter mCharacter;
 
 CSceneGame::~CSceneGame() {
 
@@ -20,23 +23,29 @@ void CSceneGame::Init() {
 	mFont.LoadTexture("FontG.tga", 1, 4096 / 64);
 
 	CRes::sModelX.Load(MODEL_FILE);
+	//キャラクターにモデルを設定
+	mCharacter.Init(&CRes::sModelX);
 
 }
 
 
 void CSceneGame::Update() {
+	//歩くアニメーションに切り替える
+	mCharacter.ChangeAnimation(1, true, 60);
+	//キャラクタークラスの更新
+	mCharacter.Update(CMatrix());
 	//最初のアニメーションの現在時間を45にする
 	//CRes::sModelX.mAnimationSet[0]->mTime = 0;
-	CRes::sModelX.mAnimationSet[0]->mTime += 1.0f;
-	CRes::sModelX.mAnimationSet[0]->mTime =
-		(int)CRes::sModelX.mAnimationSet[0]->mTime %
-		(int)(CRes::sModelX.mAnimationSet[0]->mMaxTime + 1);
+	//CRes::sModelX.mAnimationSet[0]->mTime += 1.0f;
+	//CRes::sModelX.mAnimationSet[0]->mTime =
+	//	(int)CRes::sModelX.mAnimationSet[0]->mTime %
+	//	(int)(CRes::sModelX.mAnimationSet[0]->mMaxTime + 1);
 	//最初のアニメーションの重みを1.0(100%)にする
-	CRes::sModelX.mAnimationSet[0]->mWeight = 1.0f;
+	//CRes::sModelX.mAnimationSet[0]->mWeight = 1.0f;
 	//フレームの変換行列をアニメーションで更新する
-	CRes::sModelX.AnimateFrame();
+	//CRes::sModelX.AnimateFrame();
 	//フレームの合成行列を作成する
-	CRes::sModelX.mFrame[0]->AnimateCombined(&Matrix);
+	//CRes::sModelX.mFrame[0]->AnimateCombined(&Matrix);
 
 #ifdef _DEBUG
 	/*for (int k = 0; k < 6; k++){
@@ -85,9 +94,11 @@ void CSceneGame::Update() {
 	//行列設定
 	glMultMatrixf(Matrix.mF);
 	//頂点にアニメーションを適用する
-	CRes::sModelX.AnimateVertex();
+	//CRes::sModelX.AnimateVertex();
 	//モデル描画
-	CRes::sModelX.Render();
+	//CRes::sModelX.Render();
+	mCharacter.Render();
+
 	////テクスチャテスト
 	//CRes::sModelX.mMaterial[0]->mTexture.DrawImage(
 	//	-5, 5, -5, 5, 0, 128, 128, 0);
