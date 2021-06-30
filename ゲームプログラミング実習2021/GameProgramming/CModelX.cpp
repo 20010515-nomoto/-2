@@ -400,12 +400,12 @@ CSkinWeights::CSkinWeights(CModelX *model)
 		for (int i = 0; i < mIndexNum; i++){
 			mpWeight[i] = model->GetFloatToken();
 		}
-		//オフセット行列取得
-		for (int i = 0; i < 16; i++){
-			mOffset.mF[i] = model->GetFloatToken();
-		}
-		model->GetToken();		//}
 	}
+	//オフセット行列取得
+	for (int i = 0; i < 16; i++){
+		mOffset.mF[i] = model->GetFloatToken();
+	}
+	model->GetToken();		//}
 #ifdef  _DEBUG
 	/*printf("CSkinWeights %s\n", mpFrameName);
 
