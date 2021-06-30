@@ -31,6 +31,9 @@ public:
 	int mMaterialNum;	//マテリアル数
 	int mMaterialIndexNum;	//マテリアル番号数(面数)
 	int *mpMaterialIndex;	//マテリアル番号
+	//テクスチャ座標データ
+	float *mpTextureCoords;
+
 	std::vector<CMaterial*>mMaterial;	//マテリアルデータ
 	std::vector<CSkinWeights*>mSkinWeights;	//スキンウェイト
 
@@ -50,6 +53,7 @@ public:
 		, mpMaterialIndex(nullptr)
 		, mpAnimateVertex(nullptr)
 		, mpAnimateNormal(nullptr)
+		, mpTextureCoords(nullptr)
 	{}
 	//デストラクタ
 	~CMesh(){
@@ -59,6 +63,7 @@ public:
 		SAFE_DELETE_ARRAY(mpMaterialIndex);
 		SAFE_DELETE_ARRAY(mpAnimateVertex);
 		SAFE_DELETE_ARRAY(mpAnimateNormal);
+		SAFE_DELETE_ARRAY(mpTextureCoords);
 		//スキンウェイトの削除
 		for (int i = 0; i < mSkinWeights.size(); i++){
 			delete mSkinWeights[i];
