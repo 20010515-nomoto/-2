@@ -30,8 +30,9 @@ void CSceneGame::Init() {
 
 
 void CSceneGame::Update() {
-	//歩くアニメーションに切り替える
-	mCharacter.ChangeAnimation(1, true, 60);
+	if (mCharacter.mAnimationFrame >= mCharacter.mAnimationFrameSize){
+		mCharacter.ChangeAnimation(mCharacter.mAnimationIndex + 1, true, 60);
+	}
 	//キャラクタークラスの更新
 	mCharacter.Update(CMatrix());
 	//最初のアニメーションの現在時間を45にする
