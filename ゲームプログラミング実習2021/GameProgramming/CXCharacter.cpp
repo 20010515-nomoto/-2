@@ -1,6 +1,13 @@
 #include "CXCharacter.h"
 
 /*
+デフォルトコンストラクタ
+*/
+CXCharacter::CXCharacter(){
+	mScale = CVector(1.0f, 1.0f, 1.0f);
+}
+
+/*
 Init
 初期化処理
 */
@@ -82,4 +89,11 @@ void CXCharacter::Update(CMatrix &matrix){
 */
 void CXCharacter::Render(){
 	mpModel->Render();
+}
+//更新処理
+void CXCharacter::Update(){
+	//変換行列の更新
+	CTransform::Update();
+	//アニメーションを更新する
+	Update(mMatrix);
 }

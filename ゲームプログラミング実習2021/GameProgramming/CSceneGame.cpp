@@ -9,10 +9,11 @@
 #include "CKey.h"
 #include "CMaterial.h"
 #include "CXCharacter.h"
+#include "CXPlayer.h"
 
 CMatrix Matrix;
-//キャラクタクラスのインスタンス
-CXCharacter mCharacter;
+//キャラクタのインスタンス
+CXPlayer mPlayer;
 
 CSceneGame::~CSceneGame() {
 
@@ -24,17 +25,17 @@ void CSceneGame::Init() {
 
 	CRes::sModelX.Load(MODEL_FILE);
 	//キャラクターにモデルを設定
-	mCharacter.Init(&CRes::sModelX);
+	mPlayer.Init(&CRes::sModelX);
 
 }
 
 
 void CSceneGame::Update() {
-	if (mCharacter.mAnimationFrame >= mCharacter.mAnimationFrameSize){
+	/*if (mCharacter.mAnimationFrame >= mCharacter.mAnimationFrameSize){
 		mCharacter.ChangeAnimation(mCharacter.mAnimationIndex + 1, true, 60);
-	}
+	}*/
 	//キャラクタークラスの更新
-	mCharacter.Update(CMatrix());
+	mPlayer.Update();
 	//最初のアニメーションの現在時間を45にする
 	//CRes::sModelX.mAnimationSet[0]->mTime = 0;
 	//CRes::sModelX.mAnimationSet[0]->mTime += 1.0f;
@@ -98,7 +99,7 @@ void CSceneGame::Update() {
 	//CRes::sModelX.AnimateVertex();
 	//モデル描画
 	//CRes::sModelX.Render();
-	mCharacter.Render();
+	mPlayer.Render();
 
 	////テクスチャテスト
 	//CRes::sModelX.mMaterial[0]->mTexture.DrawImage(
