@@ -10,10 +10,13 @@
 #include "CMaterial.h"
 #include "CXCharacter.h"
 #include "CXPlayer.h"
+#include "CXEnemy.h"
 
 CMatrix Matrix;
 //キャラクタのインスタンス
 CXPlayer mPlayer;
+//敵のインスタンス
+CXEnemy mEnemy;
 
 CSceneGame::~CSceneGame() {
 
@@ -26,43 +29,18 @@ void CSceneGame::Init() {
 	CRes::sModelX.Load(MODEL_FILE);
 	//キャラクターにモデルを設定
 	mPlayer.Init(&CRes::sModelX);
-
+	//敵の初期設定
+	mEnemy.Init(&CRes::sModelX);
+	//敵の位置
+	mEnemy.mPosition = CVector(7.0f, 0.0f, 0.0f);
 }
 
 
 void CSceneGame::Update() {
-	/*if (mCharacter.mAnimationFrame >= mCharacter.mAnimationFrameSize){
-		mCharacter.ChangeAnimation(mCharacter.mAnimationIndex + 1, true, 60);
-	}*/
 	//キャラクタークラスの更新
 	mPlayer.Update();
-	//最初のアニメーションの現在時間を45にする
-	//CRes::sModelX.mAnimationSet[0]->mTime = 0;
-	//CRes::sModelX.mAnimationSet[0]->mTime += 1.0f;
-	//CRes::sModelX.mAnimationSet[0]->mTime =
-	//	(int)CRes::sModelX.mAnimationSet[0]->mTime %
-	//	(int)(CRes::sModelX.mAnimationSet[0]->mMaxTime + 1);
-	//最初のアニメーションの重みを1.0(100%)にする
-	//CRes::sModelX.mAnimationSet[0]->mWeight = 1.0f;
-	//フレームの変換行列をアニメーションで更新する
-	//CRes::sModelX.AnimateFrame();
-	//フレームの合成行列を作成する
-	//CRes::sModelX.mFrame[0]->AnimateCombined(&Matrix);
-
-#ifdef _DEBUG
-	/*for (int k = 0; k < 6; k++){
-		printf("Frame:%s\n", CRes::sModelX.mFrame[k]->mpName);
-		for (int i = 0; i < 4; i += 4){
-			for (int j = 0; j < 16; j += 4){
-				printf(" %f %f %f %f\n",
-					CRes::sModelX.mFrame[k]->mCombinedMatrix.mM[i][j],
-					CRes::sModelX.mFrame[k]->mCombinedMatrix.mM[i][j + 1],
-					CRes::sModelX.mFrame[k]->mCombinedMatrix.mM[i][j + 2],
-					CRes::sModelX.mFrame[k]->mCombinedMatrix.mM[i][j + 3]);
-			}
-		}
-	}*/
-#endif
+	//敵の更新
+	mEnemy.Update();
 
 	//カメラのパラメータを作成する
 	CVector e, c, u;//視点、注視点、上方向
@@ -100,6 +78,7 @@ void CSceneGame::Update() {
 	//モデル描画
 	//CRes::sModelX.Render();
 	mPlayer.Render();
+	mEnemy.Render();
 
 	////テクスチャテスト
 	//CRes::sModelX.mMaterial[0]->mTexture.DrawImage(

@@ -25,6 +25,12 @@ public:
 	void Update();
 	//デフォルトコンストラクタ
 	CXCharacter();
+
+	CMatrix *mpCombinedMatrix;	//合成行列退避
+
+	virtual ~CXCharacter(){
+		SAFE_DELETE_ARRAY(mpCombinedMatrix);
+	}
 };
 
 
