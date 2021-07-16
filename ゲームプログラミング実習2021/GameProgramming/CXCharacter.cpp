@@ -60,6 +60,10 @@ Update
 matrix:移動、回転、拡大縮小の行列
 */
 void CXCharacter::Update(CMatrix &matrix){
+	for (int i = 0; i < mpModel->mAnimationSet.size(); i++){
+		mpModel->mAnimationSet[i]->mWeight = 0.0f;
+	}
+	mpModel->mAnimationSet[mAnimationIndex]->mWeight = 1.0f;
 	//最後まで再生していない
 	if (mAnimationFrame < mAnimationFrameSize){
 		//アニメーションの時間を計算
