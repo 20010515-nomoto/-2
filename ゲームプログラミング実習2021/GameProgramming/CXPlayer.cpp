@@ -1,6 +1,22 @@
 #include "CXPlayer.h"
 #include "CKey.h"
 
+CXPlayer::CXPlayer()
+:mColSphereBody(this, nullptr, CVector(), 0.5f)
+, mColSphereHead(this, nullptr, CVector(0.0f, 5.0f, -3.0f), 0.5f)
+, mColSphereSword(this, nullptr, CVector(-10.0f, 10.0f, 50.0f), 0.3f)
+{
+
+}
+
+void CXPlayer::Init(CModelX *model){
+	CXCharacter::Init(model);
+	//‡¬s—ñ‚ÌÝ’è
+	mColSphereBody.mpMatrix = &mpCombinedMatrix[8];
+	mColSphereHead.mpMatrix = &mpCombinedMatrix[11];
+	mColSphereSword.mpMatrix = &mpCombinedMatrix[21];
+}
+
 //XVˆ—
 void CXPlayer::Update(){
 	if (mAnimationIndex == 3 && mAnimationFrame >= mAnimationFrameSize){
