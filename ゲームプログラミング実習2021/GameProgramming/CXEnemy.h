@@ -11,6 +11,10 @@ public:
 	CCollider mEnemyColSphereBody;	//‘Ì
 	CCollider mEnemyColSphereHead;	//“ª
 	CCollider mEnemyColSphereSword;	//Œ•
+
+	//Õ“Ëˆ—
+	void Collision(CCollider *m, CCollider *o);
+
 };
 
 #endif

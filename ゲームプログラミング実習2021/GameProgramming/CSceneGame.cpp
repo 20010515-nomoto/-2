@@ -12,6 +12,7 @@
 #include "CXPlayer.h"
 #include "CXEnemy.h"
 #include "CCollisionManager.h"
+#include "CTaskManager.h"
 
 CMatrix Matrix;
 //キャラクタのインスタンス
@@ -83,6 +84,8 @@ void CSceneGame::Update() {
 
 	//コライダの描画
 	CCollisionManager::Get()->Render();
+	//衝突処理
+	CCollisionManager::Get()->Collision();
 	////テクスチャテスト
 	//CRes::sModelX.mMaterial[0]->mTexture.DrawImage(
 	//	-5, 5, -5, 5, 0, 128, 128, 0);
