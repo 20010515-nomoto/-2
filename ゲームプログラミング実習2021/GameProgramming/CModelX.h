@@ -89,6 +89,9 @@ public:
 	CMesh mMesh;	//Meshデータ
 	//コンストラクタ
 	CModelXFrame(CModelX* model);
+	CModelXFrame()
+		:mpName(nullptr)
+		, mIndex(0){}	//コンストラクタ
 	//デストラクタ
 	~CModelXFrame(){
 		//子フレームをすべて解放する
