@@ -224,5 +224,8 @@
     <ClInclude Include="CXEnemy.h">
       <Filter>ソース ファイル\Lib</Filter>
     </ClInclude>
+    <ClInclude Include="CVertex.h">
+      <Filter>ソース ファイル\Lib</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

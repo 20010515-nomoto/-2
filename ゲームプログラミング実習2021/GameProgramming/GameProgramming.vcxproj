@@ -148,6 +148,7 @@
     <ClInclude Include="CTriangle.h" />
     <ClInclude Include="CUtil.h" />
     <ClInclude Include="CVector.h" />
+    <ClInclude Include="CVertex.h" />
     <ClInclude Include="CXCharacter.h" />
     <ClInclude Include="CXEnemy.h" />
     <ClInclude Include="CXPlayer.h" />
