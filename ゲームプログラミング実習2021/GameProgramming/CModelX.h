@@ -159,6 +159,14 @@ public:
 	CMaterial* FindMaterial(char* name);
 
 	void AnimateVertex(CMatrix*);
+	/*
+	アニメーションを抜き出す
+	idx:分割したいアニメーションセットの番号
+	start:分割したいアニメーションの開始時間
+	end:分割したいアニメーションの終了時間
+	name:追加するアニメーションセットの名前
+	*/
+	void SeparateAnimationSet(int idx, int start, int end, char* name);
 };
 
 /*
@@ -196,6 +204,7 @@ public:
 	//アニメーション
 	std::vector<CAnimation*>mAnimation;
 	CAnimationSet(CModelX *model);
+	CAnimationSet(){}
 	~CAnimationSet(){
 		SAFE_DELETE_ARRAY(mpName);
 		//アニメーション要素の削除
@@ -217,6 +226,7 @@ public:
 	CAnimationKey *mpKey;	//キーの配列
 
 	CAnimation(CModelX *model);
+	CAnimation(){}
 
 	~CAnimation(){
 		SAFE_DELETE_ARRAY(mpFrameName);

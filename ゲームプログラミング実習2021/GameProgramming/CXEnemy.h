@@ -10,7 +10,9 @@ public:
 	void Init(CModelX *model);
 	CCollider mEnemyColSphereBody;	//‘Ì
 	CCollider mEnemyColSphereHead;	//“ª
-	CCollider mEnemyColSphereSword;	//Œ•
+	CCollider mEnemyColSphereSword0;	//Œ•
+	CCollider mEnemyColSphereSword1;	//Œ•
+	CCollider mEnemyColSphereSword2;	//Œ•
 
 	//Õ“Ëˆ—
 	void Collision(CCollider *m, CCollider *o);

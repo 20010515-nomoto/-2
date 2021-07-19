@@ -2,9 +2,11 @@
 #include "CCollisionManager.h"
 
 CXEnemy::CXEnemy()
-:mEnemyColSphereBody(this, nullptr, CVector(), 0.5f)
-, mEnemyColSphereHead(this, nullptr, CVector(0.0f, 5.0f, -3.0f), 0.5f)
-, mEnemyColSphereSword(this, nullptr, CVector(-10.0f, 10.0f, 50.0f), 0.3f)
+:mEnemyColSphereBody(this, nullptr, CVector(0.5f,-1.0f,0.0f), 1.0f)
+, mEnemyColSphereHead(this, nullptr, CVector(0.0f, 1.0f, 0.0f), 1.5f)
+, mEnemyColSphereSword0(this, nullptr, CVector(0.7f, 3.5f, -0.2f), 0.5f)
+, mEnemyColSphereSword1(this, nullptr, CVector(0.5f, 2.5f, -0.2f), 0.5f)
+, mEnemyColSphereSword2(this, nullptr, CVector(0.3f, 1.5f, -0.2f), 0.5f)
 {
 
 }
@@ -12,9 +14,11 @@ CXEnemy::CXEnemy()
 void CXEnemy::Init(CModelX *model){
 	CXCharacter::Init(model);
 	//çáê¨çsóÒÇÃê›íË
-	mEnemyColSphereBody.mpMatrix = &mpCombinedMatrix[8];
-	mEnemyColSphereHead.mpMatrix = &mpCombinedMatrix[11];
-	mEnemyColSphereSword.mpMatrix = &mpCombinedMatrix[21];
+	mEnemyColSphereBody.mpMatrix = &mpCombinedMatrix[1];
+	mEnemyColSphereHead.mpMatrix = &mpCombinedMatrix[1];
+	mEnemyColSphereSword0.mpMatrix = &mpCombinedMatrix[26];
+	mEnemyColSphereSword1.mpMatrix = &mpCombinedMatrix[26];
+	mEnemyColSphereSword2.mpMatrix = &mpCombinedMatrix[26];
 }
 
 void CXEnemy::Collision(CCollider *m, CCollider *o){
