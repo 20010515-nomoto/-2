@@ -4,6 +4,7 @@
 #include <vector>		//vectorクラスのインクルード(動的配列)
 #include "CMatrix.h"	//マトリクスクラスのインクルード
 #include "CVector.h"
+#include "CMyShader.h"
 class CModelX;		//CModelXクラスの宣言
 class CSkinWeights;
 class CMaterial;	//クラスの宣言
@@ -37,6 +38,13 @@ public:
 	std::vector<CMaterial*>mMaterial;	//マテリアルデータ
 	std::vector<CSkinWeights*>mSkinWeights;	//スキンウェイト
 
+	//マテリアル毎の面数
+	std::vector<int>mMaterialVertexCount;
+	//頂点バッファ識別子
+	GLuint mMyVertexBufferId;
+	//頂点バッファ作成
+	void CreateVertexBuffer();
+
 	CVector *mpAnimateVertex;	//アニメーション用頂点
 	CVector *mpAnimateNormal;	//アニメーション用法線
 
@@ -54,6 +62,7 @@ public:
 		, mpAnimateVertex(nullptr)
 		, mpAnimateNormal(nullptr)
 		, mpTextureCoords(nullptr)
+		, mMyVertexBufferId(0)
 	{}
 	//デストラクタ
 	~CMesh(){
@@ -124,6 +133,7 @@ public:
 
 	CModelX()
 		:mpPointer(nullptr)
+		, mpSkinningMatrix(nullptr)
 	{}
 
 	~CModelX(){
@@ -136,6 +146,7 @@ public:
 		for (int i = 0; i < mMaterial.size(); i++){
 			delete mMaterial[i];
 		}
+		SAFE_DELETE_ARRAY(mpSkinningMatrix);
 	}
 	//ファイルの読み込み
 	void Load(char* file);
@@ -167,6 +178,13 @@ public:
 	name:追加するアニメーションセットの名前
 	*/
 	void SeparateAnimationSet(int idx, int start, int end, char* name);
+
+	//シェーダー用スキンマトリックス
+	CMatrix *mpSkinningMatrix;
+	CMyShader mShader;	//シェーダーのインスタンス
+
+	//シェーダーを使った描画
+	void RenderShader(CMatrix *m);
 };
 
 /*

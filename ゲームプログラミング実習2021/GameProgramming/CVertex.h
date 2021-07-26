@@ -20,7 +20,7 @@ public:
 
 	CVertex(){
 		for (int i = 0; i < 4; i++){
-			mBoneIndex[i] = 0.0f;
+			mBoneIndex[i] = 0;
 			mBoneWeight[i] = 0.0f;
 		}
 		mBoneWeight[0] = 1.0f;
